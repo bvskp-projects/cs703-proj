@@ -1,0 +1,13 @@
+{
+    "examples": [
+        {
+            "input": {
+                "foo": {
+                    "bar": 42
+                }
+            },
+            "output": [42]
+        }
+    ],
+    "expression": ".foo.bar"
+}

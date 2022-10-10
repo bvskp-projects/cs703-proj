@@ -1,0 +1,13 @@
+{
+    "examples": [
+        {
+            "input": [1, 2, 3],
+            "output": [3]
+        },
+        {
+            "input": [1,2],
+            "output": [2]
+        }
+    ],
+    "expression": ".[-1]"
+}

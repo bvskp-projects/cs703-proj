@@ -1,0 +1,12 @@
+{
+    "examples": [
+        {
+            "input":
+                {
+                    "foo": 42
+                },
+                "output": [true]
+        }
+    ],
+    "expression": "has(\"foo\")"
+}

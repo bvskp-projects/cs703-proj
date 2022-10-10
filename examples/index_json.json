@@ -1,0 +1,73 @@
+{
+    "examples": [
+        {
+            "input": {
+                [
+                    {
+                        "sha": "cff5336ec71b6fee396a95bb0e4bea365e0cd1e8",
+                        "node_id": "C_kwDOAE3WVdoAKGNmZjUzMzZlYzcxYjZmZWUzOTZhOTViYjBlNGJlYTM2NWUwY2QxZTg",
+                        "commit": {
+                          "author": {
+                            "name": "Mattias Wadman",
+                            "email": "mattias.wadman@gmail.com",
+                            "date": "2021-06-09T14:02:22Z"
+                          },
+                          "committer": {
+                            "name": "Nico Williams",
+                            "email": "nico@cryptonector.com",
+                            "date": "2022-05-26T21:04:32Z"
+                          },
+                          "message": "docs: Document repeat(exp)",
+                          "tree": {
+                            "sha": "d67d5542df1f16d1a48e1fb75749f60482cd874b",
+                            "url": "https://api.github.com/repos/stedolan/jq/git/trees/d67d5542df1f16d1a48e1fb75749f60482cd874b"
+                          },
+                          "url": "https://api.github.com/repos/stedolan/jq/git/commits/cff5336ec71b6fee396a95bb0e4bea365e0cd1e8",
+                          "comment_count": 0,
+                          "verification": {
+                            "verified": false,
+                            "reason": "unsigned",
+                            "signature": null,
+                            "payload": null
+                          }
+                        }
+                    },
+                    {
+                        "sha": "f2ad9517c72f6267ae317639ab56bbfd4a8653d4",
+                        "node_id": "C_kwDOAE3WVdoAKGYyYWQ5NTE3YzcyZjYyNjdhZTMxNzYzOWFiNTZiYmZkNGE4NjUzZDQ",
+                        "commit": {
+                          "author": {
+                            "name": "Mattias Wadman",
+                            "email": "mattias.wadman@gmail.com",
+                            "date": "2022-01-07T10:08:58Z"
+                          },
+                          "committer": {
+                            "name": "Nico Williams",
+                            "email": "nico@cryptonector.com",
+                            "date": "2022-05-26T21:02:50Z"
+                          },
+                          "message": "Mention -n in IO-section and for input/inputs",
+                          "tree": {
+                            "sha": "e210b1e24fdc1d7b5b3368dff59931a2169d29f9",
+                            "url": "https://api.github.com/repos/stedolan/jq/git/trees/e210b1e24fdc1d7b5b3368dff59931a2169d29f9"
+                          },
+                          "url": "https://api.github.com/repos/stedolan/jq/git/commits/f2ad9517c72f6267ae317639ab56bbfd4a8653d4",
+                          "comment_count": 0,
+                          "verification": {
+                            "verified": false,
+                            "reason": "unsigned",
+                            "signature": null,
+                            "payload": null
+                          }
+                        }
+                    }
+                ]
+            },
+            "output": [{
+                "message": "docs: Document repeat(exp)",
+                "name": "Nico Williams"
+            }]
+        }
+    ],
+    "expression": ".[0] | {message: .commit.message, name: .commit.committer.name}"
+}

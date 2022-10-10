@@ -1,0 +1,9 @@
+{
+    "examples": [
+        {
+            "input": [8, 3, 6],
+            "output": [[3, 6, 8]]
+        }
+    ],
+    "expression": "sort"
+}

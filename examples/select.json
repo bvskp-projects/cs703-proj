@@ -1,0 +1,23 @@
+{
+    "examples": [
+        {
+            "input": [
+                {
+                    "name": "JSON",
+                    "good": true
+                },
+                {
+                    "name": "XML",
+                    "good": false
+                }
+            ],
+            "output": [
+                {
+                    "name": "JSON",
+                    "good": true
+                }
+            ]
+        }
+    ],
+    "expression": ".[] | select(.good == true)"
+}

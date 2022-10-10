@@ -1,0 +1,12 @@
+{
+    "examples": [
+        {
+            "input": {
+                "bar": 0,
+                "foo": 42
+            },
+            "output": [[42, 0]]
+        }
+    ],
+    "expression": "[.foo, .bar]"
+}

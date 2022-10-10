@@ -1,0 +1,13 @@
+{
+    "examples": [
+        {
+            "input": {
+                "abc": 1,
+                "abcd": 2,
+                "Foo": 3
+            },
+            "output": [["Foo", "abc", "abcd"]]
+        }
+    ],
+    "expression": "keys"
+}

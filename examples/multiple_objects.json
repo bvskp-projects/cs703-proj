@@ -1,0 +1,24 @@
+{
+    "examples": [
+        {
+            "input": {
+                "user": "stedolan",
+                "titles": [
+                    "JQ Primer",
+                    "More JQ"
+                ]
+            },
+            "output": [
+                {
+                    "user":"stedolan",
+                    "title": "JQ Primer"
+                },
+                {
+                    "user":"stedolan",
+                    "title": "More JQ"
+                }
+            ]
+        }
+    ],
+    "expression": "{user: .user, title: .titles[]}"
+}

@@ -1,0 +1,23 @@
+{
+    "examples": [
+        {
+            "input": {
+                "users": [
+                    {
+                        "first": "Stevie",
+                        "last": "Wonder"
+                    },
+                    {
+                        "first": "Michael",
+                        "last": "Jackson"
+                    }
+                ]
+            },
+            "output": [
+                "Stevie Wonder",
+                "Michael Jackson"
+            ]
+        }
+    ],
+    "expression": ".users[] | \"\\(.first) \\(.last)\""
+}

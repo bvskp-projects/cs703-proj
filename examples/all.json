@@ -1,0 +1,9 @@
+{
+    "examples": [
+        {
+            "input": [true, false],
+            "output": [false]
+        }
+    ],
+    "expression": "all"
+}
