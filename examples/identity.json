@@ -1,13 +1,13 @@
 {
-    "examples": {
-        [
+    "examples": [
+        {
             "input": {
                 "foo": 42
             },
             "output": [{
                 "foo": 42
             }]
-        ]
-    },
+        }
+    ],
     "expression": "."
 }
