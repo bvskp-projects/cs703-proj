@@ -11,7 +11,7 @@
                     "good": false
                 }
             ],
-            "output": [42, 0]
+            "output": ["JSON", "XML"]
         }
     ],
     "expression": ".[] | .name"
