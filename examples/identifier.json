@@ -3,9 +3,8 @@
         {
             "input": {
                 "foo": {
-                    "bar": {
-                       "echo": 42
-                    }
+                    "bar": 42,
+                    "baz": "42"
                 }
             },
             "output": [42]

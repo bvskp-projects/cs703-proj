@@ -19,5 +19,6 @@
             ]
         }
     ],
+    "constants": [true],
     "expression": ".[] | select(.good == true)"
 }
