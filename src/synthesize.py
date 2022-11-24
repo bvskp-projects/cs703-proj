@@ -17,6 +17,7 @@ def bottom_up(spec: Spec, input_schema: Schema, depth: int) -> str:
     @dataclass(order=True)
     class Work:
         priority: int
+        length: int
         expr: Expr = field(compare=False)
         schema: Schema = field(compare=False)
 
@@ -25,7 +26,7 @@ def bottom_up(spec: Spec, input_schema: Schema, depth: int) -> str:
     expr_str, score = spec.verify(identity())
     if expr_str is not None:
         return expr_str
-    heappush(worklist, Work(score, identity(), input_schema))
+    heappush(worklist, Work(score, 0, identity(), input_schema))
     while len(worklist) > 0:
         work = heappop(worklist)
         expr, expr_schema = work.expr, work.schema
@@ -36,7 +37,7 @@ def bottom_up(spec: Spec, input_schema: Schema, depth: int) -> str:
             expr_str, score = spec.verify(next_expr)
             if expr_str is not None:
                 return expr_str
-            heappush(worklist, Work(score, next_expr, schema))
+            heappush(worklist, Work(score, len(next_expr), next_expr, schema))
 
     raise OutOfDepth(depth)
 
