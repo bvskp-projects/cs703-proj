@@ -14,19 +14,22 @@ Operator types
 - sort by:      list dict -> list dict
 """
 
-from .pipeline import Operator
-from .pipeline import All, Any, ForEach, Keys, Sort
-from .pipeline import GroupBy, ObjectIndex, SortBy
-from .pipeline import Select, EqualityPred
+from jqsyn.pipeline import Operator
+from jqsyn.pipeline import All, Any, ForEach, Keys, Sort
+from jqsyn.pipeline import GroupBy, ObjectIndex, SortBy
+from jqsyn.pipeline import Select, EqualityPred
+
 
 class Schema:
     pass
+
 
 def get_schema(inputs: list) -> Schema:
     """
     Return a common schema for all the input json objects
     """
     return intersect([extract_schema(obj) for obj in inputs])
+
 
 def extract_schema(obj) -> Schema:
     """
@@ -36,7 +39,9 @@ def extract_schema(obj) -> Schema:
         kvs = {}
         for key, value in obj.items():
             kvs[key] = extract_schema(value)
-        return DictSchema(kvs, intersect([extract_schema(value) for value in obj.values()]))
+        return DictSchema(
+            kvs, intersect([extract_schema(value) for value in obj.values()])
+        )
     elif isinstance(obj, list):
         return ListSchema(intersect([extract_schema(elem) for elem in obj]))
     elif isinstance(obj, bool):
@@ -47,6 +52,7 @@ def extract_schema(obj) -> Schema:
         return StrSchema()
     else:
         return NoneSchema()
+
 
 def intersect(schemas: list[Schema]) -> Schema:
     """
@@ -71,6 +77,7 @@ class NoneSchema(Schema):
     """
     Represents the empty set
     """
+
     def rules(self, spec) -> list[tuple[Operator, Schema]]:
         return []
 
@@ -85,6 +92,7 @@ class AnySchema(Schema):
     """
     Represents the universal set
     """
+
     def rules(self, spec) -> list[tuple[Operator, Schema]]:
         raise NotImplementedError
 
@@ -99,6 +107,7 @@ class DictSchema(Schema):
     """
     Represents JSON dictionaries
     """
+
     def __init__(self, kvs: dict[str, Schema], value_schema: Schema):
         self.kvs = kvs
         self.value_schema = value_schema
@@ -124,16 +133,21 @@ class DictSchema(Schema):
 
             if isinstance(schema, BoolSchema) or isinstance(schema, AnySchema):
                 for bool_const in spec.get_bool_constants():
-                    ops.append((Select(EqualityPred(ObjectIndex(index), bool_const)), self))
+                    ops.append(
+                        (Select(EqualityPred(ObjectIndex(index), bool_const)), self)
+                    )
 
             if isinstance(schema, IntSchema) or isinstance(schema, AnySchema):
                 for int_const in spec.get_int_constants():
-                    ops.append((Select(EqualityPred(ObjectIndex(index), int_const)), self))
+                    ops.append(
+                        (Select(EqualityPred(ObjectIndex(index), int_const)), self)
+                    )
 
             if isinstance(schema, StrSchema) or isinstance(schema, AnySchema):
                 for str_const in spec.get_str_constants():
-                    ops.append((Select(EqualityPred(ObjectIndex(index), str_const), self)))
-
+                    ops.append(
+                        (Select(EqualityPred(ObjectIndex(index), str_const), self))
+                    )
 
         return ops
 
@@ -152,14 +166,15 @@ class DictSchema(Schema):
         return NoneSchema()
 
     def __str__(self):
-        kvs = ', '.join([f'{key}: {value}' for key, value in self.kvs.items()])
-        return f'{self.__class__.__name__}{{{kvs}}}{{{self.value_schema}}}'
+        kvs = ", ".join([f"{key}: {value}" for key, value in self.kvs.items()])
+        return f"{self.__class__.__name__}{{{kvs}}}{{{self.value_schema}}}"
 
 
 class ListSchema(Schema):
     """
     Represents JSON lists
     """
+
     def __init__(self, elem_schema: Schema):
         self.elem_schema = elem_schema
 
@@ -178,7 +193,9 @@ class ListSchema(Schema):
         ops = []
 
         # any, all
-        if isinstance(self.elem_schema, BoolSchema) or isinstance(self.elem_schema, AnySchema):
+        if isinstance(self.elem_schema, BoolSchema) or isinstance(
+            self.elem_schema, AnySchema
+        ):
             ops.append((All(), BoolSchema()))
             ops.append((Any(), BoolSchema()))
 
@@ -204,13 +221,14 @@ class ListSchema(Schema):
         return NoneSchema()
 
     def __str__(self):
-        return f'{self.__class__.__name__}[{self.elem_schema}]'
+        return f"{self.__class__.__name__}[{self.elem_schema}]"
 
 
 class BoolSchema(Schema):
     """
     Represents JSON booleans
     """
+
     def rules(self, spec) -> list[tuple[Operator, Schema]]:
         return []
 
@@ -231,6 +249,7 @@ class IntSchema(Schema):
     """
     Represents JSON integers
     """
+
     def rules(self, spec) -> list[tuple[Operator, Schema]]:
         return []
 
@@ -251,6 +270,7 @@ class StrSchema(Schema):
     """
     Represents JSON strings
     """
+
     def rules(self, spec) -> list[tuple[Operator, Schema]]:
         return []
 
