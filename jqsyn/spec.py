@@ -3,9 +3,10 @@ Specification
 """
 
 from typing import Dict, Optional
-from .pipeline import construct, Expr
+from jqsyn.pipeline import construct, Expr
 
 import pyjq
+
 
 def flatten(data) -> list:
     values = []
@@ -22,6 +23,7 @@ def flatten(data) -> list:
 
     return values
 
+
 class Spec:
     def __init__(self, examples: list[dict], constants: list):
         self.examples = examples
@@ -30,7 +32,7 @@ class Spec:
         self.str_constants = []
 
         for example in self.examples:
-            example['flatten'] = frozenset(flatten(example['output']))
+            example["flatten"] = frozenset(flatten(example["output"]))
 
         for constant in constants:
             if isinstance(constant, bool):
@@ -50,16 +52,18 @@ class Spec:
         """
         expr_str = construct(expr)
         for example in self.examples:
-            output = pyjq.all(expr_str, example['input'])
-            if output != example['output']:
-                return None, self.get_score(frozenset(flatten(output)), example['flatten'])
+            output = pyjq.all(expr_str, example["input"])
+            if output != example["output"]:
+                return None, self.get_score(
+                    frozenset(flatten(output)), example["flatten"]
+                )
         return expr_str, 0
 
     def get_score(self, actual, expected):
         """
         Returns number of elements absent from the extracted output
         """
-        return len(expected-actual)
+        return len(expected - actual)
 
     def get_bool_constants(self) -> list[bool]:
         return self.bool_constants
