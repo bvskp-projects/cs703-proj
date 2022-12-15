@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+import argparse
+import json
+
+from jqsyn.synthesize import synthesize
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(prog="syn", description="Synthesizer")
+    parser.add_argument("example")
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    with open(args.example, "r") as f:
+        data = json.load(f)
+        spec = data["examples"]
+        constants = []
+        if "constants" in data:
+            constants = data["constants"]
+        expr_str = synthesize(spec, constants, 3)
+        expr_str = '\n'.join(expr_str)
+        print("Synthesized")
+        print(expr_str)
+
+
+if __name__ == "__main__":
+    main()
