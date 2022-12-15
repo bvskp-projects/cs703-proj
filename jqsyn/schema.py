@@ -115,17 +115,11 @@ class DictSchema(Schema):
     def rules(self, spec) -> list[tuple[Operator, Schema]]:
         # Possible operators:
         # - .[]
-        # - keys
         # - .index
         # - select(.index==value)
+        # - keys
 
         ops = []
-
-        # .[]
-        ops.append((ForEach(), self.value_schema))
-
-        # keys
-        ops.append((Keys(), ListSchema(StrSchema())))
 
         # .index, select
         for index, schema in self.kvs.items():
@@ -148,6 +142,12 @@ class DictSchema(Schema):
                     ops.append(
                         (Select(EqualityPred(ObjectIndex(index), str_const), self))
                     )
+
+        # .[]
+        ops.append((ForEach(), self.value_schema))
+
+        # keys
+        ops.append((Keys(), ListSchema(StrSchema())))
 
         return ops
 

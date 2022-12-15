@@ -32,7 +32,8 @@ class Spec:
         self.str_constants = []
 
         for example in self.examples:
-            example["flatten"] = frozenset(flatten(example["output"]))
+            # example["flatten"] = frozenset(flatten(example["output"]))
+            example["flatten"] = list(frozenset(flatten(example["output"])))
 
         for constant in constants:
             if isinstance(constant, bool):
@@ -55,7 +56,9 @@ class Spec:
             output = pyjq.all(expr_str, example["input"])
             if output != example["output"]:
                 return None, self.get_score(
-                    frozenset(flatten(output)), example["flatten"]
+                    # frozenset(flatten(output)), example["flatten"]
+                    frozenset(flatten(output)),
+                    frozenset(example["flatten"]),
                 )
         return expr_str, 0
 
